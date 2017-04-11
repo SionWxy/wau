@@ -1,6 +1,8 @@
 # wau
 Work Automation Utils
 
+## Modules
+
 1. General utils
 
 2. Color support from ANSI code
