@@ -45,7 +45,7 @@ class ColorUtils(object):
         COL_BFG_CYAN,
         # COL_BFG_WHITE,
     ]
-    # Color cyclical counter.
+    # Color cyclical counter, used by get_a_color().
     COL_CYC_CNT = -1
     # Dict mapping a string with a color.
     COL_STR_MAP = {}
@@ -59,7 +59,7 @@ class ColorUtils(object):
     @staticmethod
     def get_str_color(a_str=''):
         if not a_str in ColorUtils.COL_STR_MAP:
-            ColorUtils.COL_STR_MAP[a_str] = get_a_color()
+            ColorUtils.COL_STR_MAP[a_str] = ColorUtils.get_a_color()
         return ColorUtils.COL_STR_MAP[a_str]
 
     @staticmethod

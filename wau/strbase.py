@@ -20,14 +20,14 @@ class StrBaseUtils(object):
           3. Contains only spaces
         Then a_str is considered invisible.
         """
-        return mk_str(a_str) != '' and (not mk_str(a_str).isspace())
+        return StrBaseUtils.mk_str(a_str) != '' and (not StrBaseUtils.mk_str(a_str).isspace())
 
     @staticmethod
     def suffix(a_str=None, a_suffix=' '):
         """Append a_suffix if a_str is visible."""
-        return mk_str(a_str) + a_suffix if is_visible(a_str) else ''
+        return StrBaseUtils.mk_str(a_str) + a_suffix if StrBaseUtils.is_visible(a_str) else ''
 
     @staticmethod
     def prefix(a_str=None, a_prefix=' '):
         """Prepend a_prefix if a_str is visible."""
-        return a_prefix + mk_str(a_str) if is_visible(a_str) else ''
+        return a_prefix + StrBaseUtils.mk_str(a_str) if StrBaseUtils.is_visible(a_str) else ''

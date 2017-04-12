@@ -1,5 +1,6 @@
-# wau
-Work Automation Utils
+# Work Automation Utils - wau
+
+A collection of python utils that can (hopefully) help work automation.
 
 ## Modules
 
