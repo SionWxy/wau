@@ -3,34 +3,23 @@ from wau import *
 
 import unittest
 
-class TestHelperTreeNode(object):
-    def __init__(self, a_name, a_parent=None):
-        self._name = a_name
-        self._children = []
-        if a_parent != None:
-            a_parent.append(self)
-    def __repr__(self):
-        return su.mk_str(self._name)
-    def append(self, a_children):
-        self._children.append(a_children)
-    @staticmethod
-    def gen_a_tree():
-        root = TestHelperTreeNode("root")
-        child0 = TestHelperTreeNode("child0", root)
-        child1 = TestHelperTreeNode("child1", root)
-        child2 = TestHelperTreeNode("child2", root)
-        grandchild00 = TestHelperTreeNode("grandchild00", child0)
-        grandchild10 = TestHelperTreeNode("grandchild10", child1)
-        grandchild11 = TestHelperTreeNode("grandchild11", child1)
-        grandchild20 = TestHelperTreeNode("grandchild20", child2)
-        grandchild21 = TestHelperTreeNode("grandchild21", child2)
-        grandchild22 = TestHelperTreeNode("grandchild22", child2)
-        grandchild23 = TestHelperTreeNode("grandchild23", child2)
-        greatgrandchild220 = TestHelperTreeNode("greatgrandchild220", grandchild22)
-        greatgrandchild221 = TestHelperTreeNode("greatgrandchild221", grandchild22)
-        greatgrandchild222 = TestHelperTreeNode("greatgrandchild222", grandchild22)
-        greatgrandchild223 = TestHelperTreeNode("greatgrandchild223", grandchild22)
-        return root
+def test_helper_gen_a_tree():
+    root = su.TreeNode("root")
+    child0 = su.TreeNode("child0", root)
+    child1 = su.TreeNode("child1", root)
+    child2 = su.TreeNode("child2", root)
+    grandchild00 = su.TreeNode("grandchild00", child0)
+    grandchild10 = su.TreeNode("grandchild10", child1)
+    grandchild11 = su.TreeNode("grandchild11", child1)
+    grandchild20 = su.TreeNode("grandchild20", child2)
+    grandchild21 = su.TreeNode("grandchild21", child2)
+    grandchild22 = su.TreeNode("grandchild22", child2)
+    grandchild23 = su.TreeNode("grandchild23", child2)
+    greatgrandchild220 = su.TreeNode("greatgrandchild220", grandchild22)
+    greatgrandchild221 = su.TreeNode("greatgrandchild221", grandchild22)
+    greatgrandchild222 = su.TreeNode("greatgrandchild222", grandchild22)
+    greatgrandchild223 = su.TreeNode("greatgrandchild223", grandchild22)
+    return root
 
 class BasicTestSuite(unittest.TestCase):
     """Basic test cases."""
@@ -69,8 +58,8 @@ class BasicTestSuite(unittest.TestCase):
         assert(su.prefix(' ','nothing') == '')
         assert(su.prefix(None,'nothing') == '')
         assert(su.prefix(":",'(') == '(:')
-        # gen_tree() and TreeIndent
-        test_root = TestHelperTreeNode.gen_a_tree()
+        # gen_tree(), TreeNode and TreeIndent
+        test_root = test_helper_gen_a_tree()
         exp_tree_str = """root
  +- child0
  |   `- grandchild00

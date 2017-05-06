@@ -30,27 +30,17 @@ def prefix(a_str=None, a_prefix=' '):
 # String Tree Utils
 # ================================================
 
-def gen_tree(a_root, a_tree_indent=None,
-             a_get_children_func=lambda x: x._children,
-             a_mk_str_func=lambda x: mk_str(x)):
-    """Generate a tree string.
-    a_tree_indent: is the tree indent. A TreeIndent instance.
-    a_get_children_func: is a lambda function that returns a list of children nodes.
-    a_mk_str_func: is the labmda function that converts a_root into string.
-    """
-    tree_str = ''
-    tree_indent = TreeIndent() if a_tree_indent == None else a_tree_indent
-    # Check out one leaf count
-    tree_indent.decrement()
-    # Print root line
-    tree_str += str(tree_indent) + a_mk_str_func(a_root) + '\n'
-    # Handle all children recursively
-    children = a_get_children_func(a_root)
-    tree_indent.append(len(children))
-    for c in children:
-        tree_str += gen_tree(c, tree_indent, a_get_children_func, a_mk_str_func)
-    tree_indent.pop()
-    return tree_str
+class TreeNode(object):
+    """A basic tree node."""
+    def __init__(self, a_node, a_parent=None):
+        self._node = a_node
+        self._children = []
+        if a_parent != None:
+            a_parent.append(self)
+    def __repr__(self):
+        return mk_str(self._node)
+    def append(self, a_children):
+        self._children.append(a_children)
 
 class TreeIndent(object):
     """
@@ -98,3 +88,25 @@ class TreeIndent(object):
         for n in self._track[:-1]: ret += self.gen_symbol(n, False)
         ret += self.gen_symbol(self._track[-1], True)
         return ret
+
+def gen_tree(a_root, a_tree_indent=None,
+             a_get_children_func=lambda x: x._children,
+             a_mk_str_func=lambda x: mk_str(x)):
+    """Generate a tree string.
+    a_tree_indent: is the tree indent. A TreeIndent instance.
+    a_get_children_func: is a lambda function that returns a list of children nodes.
+    a_mk_str_func: is the labmda function that converts a_root into string.
+    """
+    tree_str = ''
+    tree_indent = TreeIndent() if a_tree_indent == None else a_tree_indent
+    # Check out one leaf count
+    tree_indent.decrement()
+    # Print root line
+    tree_str += str(tree_indent) + a_mk_str_func(a_root) + '\n'
+    # Handle all children recursively
+    children = a_get_children_func(a_root)
+    tree_indent.append(len(children))
+    for c in children:
+        tree_str += gen_tree(c, tree_indent, a_get_children_func, a_mk_str_func)
+    tree_indent.pop()
+    return tree_str
