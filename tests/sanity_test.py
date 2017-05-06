@@ -3,6 +3,35 @@ from wau import *
 
 import unittest
 
+class TestHelperTreeNode(object):
+    def __init__(self, a_name, a_parent=None):
+        self._name = a_name
+        self._children = []
+        if a_parent != None:
+            a_parent.append(self)
+    def __repr__(self):
+        return su.mk_str(self._name)
+    def append(self, a_children):
+        self._children.append(a_children)
+    @staticmethod
+    def gen_a_tree():
+        root = TestHelperTreeNode("root")
+        child0 = TestHelperTreeNode("child0", root)
+        child1 = TestHelperTreeNode("child1", root)
+        child2 = TestHelperTreeNode("child2", root)
+        grandchild00 = TestHelperTreeNode("grandchild00", child0)
+        grandchild10 = TestHelperTreeNode("grandchild10", child1)
+        grandchild11 = TestHelperTreeNode("grandchild11", child1)
+        grandchild20 = TestHelperTreeNode("grandchild20", child2)
+        grandchild21 = TestHelperTreeNode("grandchild21", child2)
+        grandchild22 = TestHelperTreeNode("grandchild22", child2)
+        grandchild23 = TestHelperTreeNode("grandchild23", child2)
+        greatgrandchild220 = TestHelperTreeNode("greatgrandchild220", grandchild22)
+        greatgrandchild221 = TestHelperTreeNode("greatgrandchild221", grandchild22)
+        greatgrandchild222 = TestHelperTreeNode("greatgrandchild222", grandchild22)
+        greatgrandchild223 = TestHelperTreeNode("greatgrandchild223", grandchild22)
+        return root
+
 class BasicTestSuite(unittest.TestCase):
     """Basic test cases."""
 
@@ -40,6 +69,25 @@ class BasicTestSuite(unittest.TestCase):
         assert(su.prefix(' ','nothing') == '')
         assert(su.prefix(None,'nothing') == '')
         assert(su.prefix(":",'(') == '(:')
+        # gen_tree() and TreeIndent
+        test_root = TestHelperTreeNode.gen_a_tree()
+        exp_tree_str = """root
+ +- child0
+ |   `- grandchild00
+ +- child1
+ |   +- grandchild10
+ |   `- grandchild11
+ `- child2
+     +- grandchild20
+     +- grandchild21
+     +- grandchild22
+     |   +- greatgrandchild220
+     |   +- greatgrandchild221
+     |   +- greatgrandchild222
+     |   `- greatgrandchild223
+     `- grandchild23
+"""
+        assert(su.gen_tree(test_root) == exp_tree_str)
 
     # Test cu
     def test_sanity_cu(self):

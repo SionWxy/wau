@@ -1,3 +1,3 @@
-from general import GeneralUtils as gu
-from strbase import StrBaseUtils as su
-from color   import ColorUtils   as cu
+import general as gu
+import strbase as su
+import color   as cu
